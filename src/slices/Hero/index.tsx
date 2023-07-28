@@ -26,7 +26,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       style={heroStyle}
     >
       <h1>{slice.primary.title}</h1>
-      {slice.items.map(item => <PrismicNextLink field={item.buttonlink} >{item.buttonlabel}</PrismicNextLink>)}
+      {slice.items.map((item, index) => <PrismicNextLink key={index} field={item.buttonlink} >{item.buttonlabel}</PrismicNextLink>)}
     </section>
   );
 };
