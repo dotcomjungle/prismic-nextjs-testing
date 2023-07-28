@@ -4,7 +4,21 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type LandingPageDocumentDataSlicesSlice = HeroSlice;
+interface GrillsDocumentData {}
+
+/**
+ * Grills document from Prismic
+ *
+ * - **API ID**: `grills`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type GrillsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<GrillsDocumentData>, "grills", Lang>;
+
+type LandingPageDocumentDataSlicesSlice = HeroSlice | CountdownSlice;
 
 /**
  * Content for Landing page documents
@@ -70,7 +84,62 @@ export type LandingPageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = LandingPageDocument;
+export type AllDocumentTypes = GrillsDocument | LandingPageDocument;
+
+/**
+ * Primary content in *Countdown → Primary*
+ */
+export interface CountdownSliceDefaultPrimary {
+  /**
+   * details field in *Countdown → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: countdown.primary.details
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  details: prismic.RichTextField;
+
+  /**
+   * Countdown date field in *Countdown → Primary*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: *None*
+   * - **API ID Path**: countdown.primary.countdown_date
+   * - **Documentation**: https://prismic.io/docs/field#timestamp
+   */
+  countdown_date: prismic.TimestampField;
+}
+
+/**
+ * Default variation for Countdown Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CountdownSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CountdownSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Countdown*
+ */
+type CountdownSliceVariation = CountdownSliceDefault;
+
+/**
+ * Countdown Shared Slice
+ *
+ * - **API ID**: `countdown`
+ * - **Description**: Countdown
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CountdownSlice = prismic.SharedSlice<
+  "countdown",
+  CountdownSliceVariation
+>;
 
 /**
  * Primary content in *Hero → Primary*
@@ -169,10 +238,15 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      GrillsDocument,
+      GrillsDocumentData,
       LandingPageDocument,
       LandingPageDocumentData,
       LandingPageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      CountdownSlice,
+      CountdownSliceVariation,
+      CountdownSliceDefault,
       HeroSlice,
       HeroSliceVariation,
       HeroSliceDefault,

@@ -1,0 +1,32 @@
+{
+  "id": "countdown",
+  "type": "SharedSlice",
+  "name": "Countdown",
+  "description": "Countdown",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "details": {
+          "type": "StructuredText",
+          "config": {
+            "label": "details",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "countdown_date": {
+          "type": "Timestamp",
+          "config": { "label": "Countdown date", "placeholder": "" }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
