@@ -70,7 +70,225 @@ export type LandingPageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = LandingPageDocument;
+/**
+ * Item in *Post → Post Details*
+ */
+export interface PostDocumentDataDetailsItem {
+  /**
+   * Title field in *Post → Post Details*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.details[].title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Featured Image field in *Post → Post Details*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.details[].featured_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  featured_image: prismic.ImageField<never>;
+}
+
+type PostDocumentDataSlicesSlice = never;
+
+/**
+ * Item in *Post → Editor's Choice*
+ */
+export interface PostDocumentDataEditorsChoiceItem {
+  /**
+   * Product field in *Post → Editor's Choice*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.editors_choice[].product
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  product: prismic.ContentRelationshipField;
+
+  /**
+   * Explanation field in *Post → Editor's Choice*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.editors_choice[].explanation
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  explanation: prismic.RichTextField;
+}
+
+/**
+ * Item in *Post → Budget Pick*
+ */
+export interface PostDocumentDataBudgetPickItem {
+  /**
+   * Product field in *Post → Budget Pick*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.budget_pick[].product
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  product: prismic.ContentRelationshipField;
+
+  /**
+   * Explanation field in *Post → Budget Pick*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.budget_pick[].explanation
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  explanation: prismic.RichTextField;
+}
+
+/**
+ * Item in *Post → Splurge Pick*
+ */
+export interface PostDocumentDataSplurgePickItem {
+  /**
+   * Product field in *Post → Splurge Pick*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.splurge_pick[].product
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  product: prismic.ContentRelationshipField;
+
+  /**
+   * Explanation field in *Post → Splurge Pick*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.splurge_pick[].explanation
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  explanation: prismic.RichTextField;
+}
+
+/**
+ * Content for Post documents
+ */
+interface PostDocumentData {
+  /**
+   * Post Details field in *Post*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.details[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  details: prismic.GroupField<Simplify<PostDocumentDataDetailsItem>>;
+
+  /**
+   * Content field in *Post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.content
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Slice Zone field in *Post*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PostDocumentDataSlicesSlice>
+  /**
+   * Meta Description field in *Post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: post.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *Post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: post.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField
+  /**
+   * Editor's Choice field in *Post*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.editors_choice[]
+   * - **Tab**: Associated Products
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */;
+  editors_choice: prismic.GroupField<
+    Simplify<PostDocumentDataEditorsChoiceItem>
+  >;
+
+  /**
+   * Budget Pick field in *Post*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.budget_pick[]
+   * - **Tab**: Associated Products
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  budget_pick: prismic.GroupField<Simplify<PostDocumentDataBudgetPickItem>>;
+
+  /**
+   * Splurge Pick field in *Post*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.splurge_pick[]
+   * - **Tab**: Associated Products
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  splurge_pick: prismic.GroupField<Simplify<PostDocumentDataSplurgePickItem>>;
+}
+
+/**
+ * Post document from Prismic
+ *
+ * - **API ID**: `post`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PostDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
+
+export type AllDocumentTypes = LandingPageDocument | PostDocument;
 
 /**
  * Primary content in *Hero → Primary*
@@ -172,6 +390,9 @@ declare module "@prismicio/client" {
       LandingPageDocument,
       LandingPageDocumentData,
       LandingPageDocumentDataSlicesSlice,
+      PostDocument,
+      PostDocumentData,
+      PostDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroSlice,
       HeroSliceVariation,
