@@ -3,5 +3,6 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  countdown: dynamic(() => import("./Countdown")),
   hero: dynamic(() => import("./Hero")),
 };

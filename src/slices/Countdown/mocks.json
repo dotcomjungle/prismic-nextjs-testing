@@ -1,0 +1,25 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"details": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Eiusmod cupidatat cillum esse duis. Et reprehenderit sunt dolore esse. Elit consectetur occaecat proident fugiat."
+						}
+					}
+				]
+			},
+			"countdown_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Timestamp",
+				"value": "2022-02-06T07:22:58Z"
+			}
+		},
+		"items": []
+	}
+]

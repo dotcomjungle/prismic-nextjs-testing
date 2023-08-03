@@ -1,0 +1,32 @@
+{
+  "id": "grills",
+  "label": "Grills",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": { "config": { "label": "UID" }, "type": "UID" },
+      "product_title": {
+        "type": "Text",
+        "config": { "label": "Product Title", "placeholder": "" }
+      },
+      "product_image": {
+        "type": "Image",
+        "config": {
+          "label": "Product Image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "affiliate_link": {
+        "type": "Link",
+        "config": {
+          "label": "Affiliate Link",
+          "placeholder": "",
+          "select": null
+        }
+      }
+    }
+  }
+}

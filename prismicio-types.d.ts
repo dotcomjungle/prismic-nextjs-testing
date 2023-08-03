@@ -4,7 +4,57 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type LandingPageDocumentDataSlicesSlice = HeroSlice;
+/**
+ * Content for Grills documents
+ */
+interface GrillsDocumentData {
+  /**
+   * Product Title field in *Grills*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: grills.product_title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  product_title: prismic.KeyTextField;
+
+  /**
+   * Product Image field in *Grills*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: grills.product_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  product_image: prismic.ImageField<never>;
+
+  /**
+   * Affiliate Link field in *Grills*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: grills.affiliate_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  affiliate_link: prismic.LinkField;
+}
+
+/**
+ * Grills document from Prismic
+ *
+ * - **API ID**: `grills`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type GrillsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<GrillsDocumentData>, "grills", Lang>;
+
+type LandingPageDocumentDataSlicesSlice = HeroSlice | CountdownSlice;
 
 /**
  * Content for Landing page documents
@@ -288,7 +338,65 @@ interface PostDocumentData {
 export type PostDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
 
-export type AllDocumentTypes = LandingPageDocument | PostDocument;
+export type AllDocumentTypes =
+  | GrillsDocument
+  | LandingPageDocument
+  | PostDocument;
+
+/**
+ * Primary content in *Countdown → Primary*
+ */
+export interface CountdownSliceDefaultPrimary {
+  /**
+   * details field in *Countdown → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: countdown.primary.details
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  details: prismic.RichTextField;
+
+  /**
+   * Countdown date field in *Countdown → Primary*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: *None*
+   * - **API ID Path**: countdown.primary.countdown_date
+   * - **Documentation**: https://prismic.io/docs/field#timestamp
+   */
+  countdown_date: prismic.TimestampField;
+}
+
+/**
+ * Default variation for Countdown Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CountdownSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CountdownSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Countdown*
+ */
+type CountdownSliceVariation = CountdownSliceDefault;
+
+/**
+ * Countdown Shared Slice
+ *
+ * - **API ID**: `countdown`
+ * - **Description**: Countdown
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CountdownSlice = prismic.SharedSlice<
+  "countdown",
+  CountdownSliceVariation
+>;
 
 /**
  * Primary content in *Hero → Primary*
@@ -387,6 +495,8 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      GrillsDocument,
+      GrillsDocumentData,
       LandingPageDocument,
       LandingPageDocumentData,
       LandingPageDocumentDataSlicesSlice,
@@ -394,6 +504,9 @@ declare module "@prismicio/client" {
       PostDocumentData,
       PostDocumentDataSlicesSlice,
       AllDocumentTypes,
+      CountdownSlice,
+      CountdownSliceVariation,
+      CountdownSliceDefault,
       HeroSlice,
       HeroSliceVariation,
       HeroSliceDefault,
