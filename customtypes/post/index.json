@@ -7,25 +7,9 @@
   "json": {
     "Main": {
       "uid": { "config": { "label": "UID" }, "type": "UID" },
-      "details": {
-        "type": "Group",
-        "config": {
-          "label": "Post Details",
-          "fields": {
-            "title": {
-              "type": "Text",
-              "config": { "label": "Title", "placeholder": "" }
-            },
-            "featured_image": {
-              "type": "Image",
-              "config": {
-                "label": "Featured Image",
-                "constraint": {},
-                "thumbnails": []
-              }
-            }
-          }
-        }
+      "title": {
+        "type": "Text",
+        "config": { "label": "Post Title", "placeholder": "", "useAsTitle": true }
       },
       "content": {
         "type": "StructuredText",
@@ -33,7 +17,7 @@
           "label": "Content",
           "placeholder": "",
           "allowTargetBlank": true,
-          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       },
       "slices": {
@@ -66,65 +50,31 @@
         "type": "Text"
       }
     },
-    "Associated Products": {
-      "editors_choice": {
+    "Recommended Products": {
+      "recommendation": {
         "type": "Group",
         "config": {
-          "label": "Editor's Choice",
+          "label": "Recommendation",
           "fields": {
             "product": {
               "type": "Link",
               "config": { "label": "Product", "select": "document" }
             },
-            "explanation": {
-              "type": "StructuredText",
+            "type": {
+              "type": "Select",
               "config": {
-                "label": "Explanation",
+                "label": "Type",
                 "placeholder": "",
-                "allowTargetBlank": true,
-                "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                "options": ["Editor's Choice", "Budget Pick", "Splurge Pick"]
               }
-            }
-          }
-        }
-      },
-      "budget_pick": {
-        "type": "Group",
-        "config": {
-          "label": "Budget Pick",
-          "fields": {
-            "product": {
-              "type": "Link",
-              "config": { "label": "Product", "select": "document" }
             },
             "explanation": {
               "type": "StructuredText",
               "config": {
-                "label": "Explanation",
+                "label": "Why this product?",
                 "placeholder": "",
                 "allowTargetBlank": true,
-                "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-              }
-            }
-          }
-        }
-      },
-      "splurge_pick": {
-        "type": "Group",
-        "config": {
-          "label": "Splurge Pick",
-          "fields": {
-            "product": {
-              "type": "Link",
-              "config": { "label": "Product", "select": "document" }
-            },
-            "explanation": {
-              "type": "StructuredText",
-              "config": {
-                "label": "Explanation",
-                "placeholder": "",
-                "allowTargetBlank": true,
-                "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
               }
             }
           }

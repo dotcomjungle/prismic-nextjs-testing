@@ -120,103 +120,38 @@ export type LandingPageDocument<Lang extends string = string> =
     Lang
   >;
 
-/**
- * Item in *Post → Post Details*
- */
-export interface PostDocumentDataDetailsItem {
-  /**
-   * Title field in *Post → Post Details*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.details[].title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  title: prismic.KeyTextField;
-
-  /**
-   * Featured Image field in *Post → Post Details*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.details[].featured_image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  featured_image: prismic.ImageField<never>;
-}
-
 type PostDocumentDataSlicesSlice = never;
 
 /**
- * Item in *Post → Editor's Choice*
+ * Item in *Post → Recommendation*
  */
-export interface PostDocumentDataEditorsChoiceItem {
+export interface PostDocumentDataRecommendationItem {
   /**
-   * Product field in *Post → Editor's Choice*
+   * Product field in *Post → Recommendation*
    *
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.editors_choice[].product
+   * - **API ID Path**: post.recommendation[].product
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
   product: prismic.ContentRelationshipField;
 
   /**
-   * Explanation field in *Post → Editor's Choice*
+   * Type field in *Post → Recommendation*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.recommendation[].type
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  type: prismic.SelectField<"Editor's Choice" | "Budget Pick" | "Splurge Pick">;
+
+  /**
+   * Why this product? field in *Post → Recommendation*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.editors_choice[].explanation
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  explanation: prismic.RichTextField;
-}
-
-/**
- * Item in *Post → Budget Pick*
- */
-export interface PostDocumentDataBudgetPickItem {
-  /**
-   * Product field in *Post → Budget Pick*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.budget_pick[].product
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  product: prismic.ContentRelationshipField;
-
-  /**
-   * Explanation field in *Post → Budget Pick*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.budget_pick[].explanation
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  explanation: prismic.RichTextField;
-}
-
-/**
- * Item in *Post → Splurge Pick*
- */
-export interface PostDocumentDataSplurgePickItem {
-  /**
-   * Product field in *Post → Splurge Pick*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.splurge_pick[].product
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  product: prismic.ContentRelationshipField;
-
-  /**
-   * Explanation field in *Post → Splurge Pick*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.splurge_pick[].explanation
+   * - **API ID Path**: post.recommendation[].explanation
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   explanation: prismic.RichTextField;
@@ -227,15 +162,15 @@ export interface PostDocumentDataSplurgePickItem {
  */
 interface PostDocumentData {
   /**
-   * Post Details field in *Post*
+   * Post Title field in *Post*
    *
-   * - **Field Type**: Group
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.details[]
+   * - **API ID Path**: post.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  details: prismic.GroupField<Simplify<PostDocumentDataDetailsItem>>;
+  title: prismic.KeyTextField;
 
   /**
    * Content field in *Post*
@@ -291,39 +226,17 @@ interface PostDocumentData {
    */
   meta_title: prismic.KeyTextField
   /**
-   * Editor's Choice field in *Post*
+   * Recommendation field in *Post*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.editors_choice[]
-   * - **Tab**: Associated Products
+   * - **API ID Path**: post.recommendation[]
+   * - **Tab**: Recommended Products
    * - **Documentation**: https://prismic.io/docs/field#group
    */;
-  editors_choice: prismic.GroupField<
-    Simplify<PostDocumentDataEditorsChoiceItem>
+  recommendation: prismic.GroupField<
+    Simplify<PostDocumentDataRecommendationItem>
   >;
-
-  /**
-   * Budget Pick field in *Post*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.budget_pick[]
-   * - **Tab**: Associated Products
-   * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  budget_pick: prismic.GroupField<Simplify<PostDocumentDataBudgetPickItem>>;
-
-  /**
-   * Splurge Pick field in *Post*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.splurge_pick[]
-   * - **Tab**: Associated Products
-   * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  splurge_pick: prismic.GroupField<Simplify<PostDocumentDataSplurgePickItem>>;
 }
 
 /**
